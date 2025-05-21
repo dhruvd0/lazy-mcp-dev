@@ -7,6 +7,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@linear/sdk": "^40.0.0",
     "@modelcontextprotocol/sdk": "^1.11.4",
     "zod": "^3.25.7"
   },
@@ -20,7 +21,8 @@
     "weather": "./build/index.js"
   },
   "scripts": {
-    "build": "tsc && chmod 755 build/index.js"
+    "build": "tsc && chmod 755 build/index.js",
+    "type-check": "tsc --noEmit"
   },
   "files": [
     "build"

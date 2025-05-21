@@ -127,3 +127,6 @@ dist
 .pnp.*
 
 build/
+build/*
+sample.txt
+/build
