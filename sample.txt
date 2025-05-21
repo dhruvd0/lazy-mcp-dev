@@ -1,0 +1,7 @@
+supabase url : https://ddkxytepdnoiuqkshelf.supabase.co
+supabase token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRka3h5dGVwZG5vaXVxa3NoZWxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcxMTg0ODYsImV4cCI6MjA2MjY5NDQ4Nn0.gTZM2uRoUtsNNa95sn1qbHEQzhzb0BagpKqaWsrhmLw
+github app token: a8975415cea06cd2285f0f612d84489c1ac3a0e5
+linear_token: lin_api_xEVXTPuDQcdTR2TJSO9MEABvTYHexuwpw6QCb4n9
+
+repo_url: https://github.com/dhruvd0/lazy-mcp-dev
+figma_url: https://www.figma.com/design/AL0kBHU1YwOr4bo6QINO2c/For-Dev?t=Ad5L1ZGaOXxqopTV-0
