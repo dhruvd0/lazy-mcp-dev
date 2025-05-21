@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-// import { execSync } from 'child_process'; // No longer needed for this simplified tool
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { LinearClient } from "@linear/sdk";
 // Helper function to slugify strings (can be kept for other potential tools)
@@ -19,13 +18,13 @@ const server = new McpServer({
     version: "0.1.0",
     capabilities: {
         tools: {
-            "get-linear-tickets": true,
+            "get-linear-tickets-v1": true,
         },
         resources: {
             "statusCheck": true
         },
         prompts: {
-            "generateCommitMessage": true
+            "start-task": true
         }
     }
 });
@@ -90,16 +89,26 @@ server.tool("get-linear-tickets-v1", "Fetches Linear tickets based on a descript
         };
     }
 });
-// Example Prompt
-server.prompt("generateCommitMessage", "Generates a commit message based on a task description.", { taskDescription: z.string().describe("A description of the task or changes made.") }, ({ taskDescription }) => ({
-    messages: [{
-            role: "user",
-            content: {
-                type: "text",
-                text: `Based on the task: "${taskDescription}", please suggest a concise and informative commit message following conventional commit standards.`
-            }
-        }]
-}));
+// --- New Prompt for Starting a Task Workflow ---
+server.prompt("start-task", "Starts a new development task: fetches Linear tickets and creates a git branch.", {
+    taskDescription: z.string().describe("A description of the feature or bug."),
+    branchType: z.enum(["feature", "bugfix"]).describe("The type of branch to create (feature or bugfix).")
+}, async ({ taskDescription, branchType }) => {
+    const message = `Start this task.
+    Task Description: ${taskDescription}
+    STRICT Steps to follow:
+    1. Fetch the linear tickets for the task, use the tool "get-linear-tickets-v1" to fetch the tickets.
+    2. Let the user pick the ticket, explcityly ask they want to work on.
+    3. IMPORTANT: Create a new branch for the task.
+    4. Start the task.
+    `;
+    return {
+        messages: [{
+                role: "user",
+                content: { type: "text", text: message }
+            }]
+    };
+});
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
